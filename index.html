@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Web Interface</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form id="sendMessageForm">
+        <h1>Send Message to Discord</h1>
+        <label for="channelID">Channel ID:</label>
+        <input type="text" id="channelID" name="channelID" required>
+        
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+        
+        <button type="submit">Send</button>
+    </form>
+
+    <script>
+        document.getElementById('sendMessageForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const channelID = document.getElementById('channelID').value;
+            const message = document.getElementById('message').value;
+
+            const response = await fetch(`/send?channelID=${channelID}&message=${encodeURIComponent(message)}`);
+            alert(await response.text());
+        };
+    </script>
+</body>
+</html>
